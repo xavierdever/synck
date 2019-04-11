@@ -38,8 +38,8 @@ session_start();
 									<h2 class="major">Ton espace perso !</h2>
 									<p>Gratuitement (et ça le restera) tu peux créer ton espace perso ou t'inscrire si tu en as pas déjà un.</p>
                                     
-                                        <div class="button-form"><button onclick="$dialog2.showModal()">Connexion</button> </div>
-                                        <div class="button-form"><button onclick="$dialog.showModal()">Inscription</button></div> 
+                                        <div class="button-form"><button data-target="mydialog2" class="modal-button">Connexion</button> </div>
+                                        <div class="button-form"><button data-target="mydialog" class="modal-button">Inscription</button> </div>
                                     
                                 </div>
                             </section>
@@ -91,11 +91,11 @@ session_start();
 			                    
 			                    
 			                    <label for="nom">Nom :<label>
-			                    <input type="text" name="nom" />
+			                    <input type="text" name="last_name" />
 			                    
 			                    
 			                    <label for="prenom">Prenom :<label>
-			                    <input type="text" name="prenom" />
+			                    <input type="text" name="first_name" />
 			                    
 			                    
 			                    <label for="password">Mot de passe :<label>
@@ -112,8 +112,7 @@ session_start();
 								<div class="button-form">
 
 									<input type="submit" value="Envoyer" />
-							
-                            		<button onclick="$dialog.close()">Fermer</button>&nbsp;
+									<input type="button" class="button-close" value="Fermer" />
 
                         		</div> 
 
@@ -140,8 +139,7 @@ session_start();
 								<div class="button-form">
 
 									<input type="submit" value="Envoyer" />
-							
-                            		<button onclick="$dialog2.close()">Fermer</button>&nbsp;
+                            		<input type="button" class="button-close" value="Fermer" />
 
                         		</div>
 
@@ -150,29 +148,77 @@ session_start();
                          
                     </dialog>
 
-                    <script>
-                            var $dialog = document.getElementById('mydialog'); 
-                            if(!('show' in $dialog)){ 
-                                    document.getElementById('promptCompat').className = 'no_dialog'; 
-                                } 
-                            $dialog.addEventListener('close', function() { 
-                                console.log('Fermeture. ', this.returnValue); 
-                                }); 
-                    </script> 
-
-               		<script>
-                            var $dialog2 = document.getElementById('mydialog2'); 
-                            if(!('show' in $dialog2)){ 
-                                    document.getElementById('promptCompat').className = 'no_dialog'; 
-                                } 
-                            $dialog2.addEventListener('close', function() { 
-                                console.log('Fermeture. ', this.returnValue); 
-                                }); 
-                    </script>        
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/main.js"></script>
+
+		<?php 
+			if(isset($_SESSION['passworderr']) && $_SESSION['passworderr']===false) { 
+		?>
+		<script>
+			alert('Wrong password');
+		</script>
+		<?php 
+			} 
+			unset($_SESSION['passworderr']);
+		?>
+
+		<?php 
+			if(isset($_SESSION['pseudoerr']) && $_SESSION['pseudoerr']===false) { 
+		?>
+		<script>
+			alert('Wrong pseudo, it doesn\'t exist');
+		</script>
+		<?php 
+			} 
+			unset($_SESSION['pseudoerr']);
+		?>
+
+		<?php 
+			if(isset($_SESSION['emptyfield']) && $_SESSION['emptyfield']===false) { 
+		?>
+		<script>
+			alert('All fields must be completed');
+		</script>
+		<?php 
+			} 
+			unset($_SESSION['emptyfield']);
+		?>
+
+		<?php 
+			if(isset($_SESSION['passworddiff']) && $_SESSION['passworddiff']===false) { 
+		?>
+		<script>
+			alert('Passwords are differents');
+		</script>
+		<?php 
+			} 
+			unset($_SESSION['passworddiff']);
+		?>
+
+		<?php 
+			if(isset($_SESSION['pseudouse']) && $_SESSION['pseudouse']===false) { 
+		?>
+		<script>
+			alert('Pseudo already used');
+		</script>
+		<?php 
+			} 
+			unset($_SESSION['pseudouse']);
+		?>
+
+		<?php 
+			if(isset($_SESSION['emailuse']) && $_SESSION['emailuse']===false) { 
+		?>
+		<script>
+			alert('email already used');
+		</script>
+		<?php 
+			} 
+			unset($_SESSION['emailuse']);
+		?>
+
 
 	</body>
 </html>
