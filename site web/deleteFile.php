@@ -8,5 +8,5 @@
 	}
 	else 
 		echo "Fichier ". $filepath. " introuvable";
-
+	header('Location: personal_workspace.php');
 ?>
